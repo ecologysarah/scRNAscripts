@@ -1,0 +1,21 @@
+STARsolo is failing
+- initially said that index reads are 29 bases instead of the expected 28
+- I could see that each read started with an N
+- trimmed the first base off all index reads using fastp
+
+- now STARsolo says that the sequence and quality lines are different lengths
+- I grepped the sequence name provided and it is fine
+- however, STARsolo's example sequence name is followed by two more lines which it presumably thinks are the sequence and quality and which are clearly not
+- somehow the FASTQs are becoming jumbled in STAR, even though they look the same
+- tried gunzip and gzip in case it was a compression issue - md5 changed, but same error occurring
+- tried using the L001 and L002 files separately rather than recording them as tech rep - still getting the error
+
+24/02/23
+Tried running with cellranger instead of STARsolo
+- new error: non-matching headers
+- looked at the offending line numbers in the trimmed and untrimmed files
+- the trimmed file is offset by 4 lines
+- HOWEVER, there is a bigger problem
+- looking at the sequences futher down the untrimmed file, the first base is not necessarily N. This means that the index read genuinely is 29 bases long
+
+The 10x website seems to say that barcodes reads may be longer than the requisite 28 bases, and that cellRanger will discard the extra bases. Ran pipeline with the untrimmed reads using cellranger, and all ran without errors.
