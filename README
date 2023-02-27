@@ -1,0 +1,6 @@
+This repository contains the necessary files to run the nf-core/scrnaseq Nextflow pipeline for scRNA data on Cardiff School of Biosciences' iago server.
+- the pipeline's page is https://nf-co.re/scrnaseq/2.1.0
+- this setup uses singularity as a container environment
+- N.B. starter.sh should be run from the head node, NOT inside an srun session; it will launch its own slurm scripts
+
+Notes.txt contains some troubleshooting notes from setting up the pipeline for the first time.
